@@ -4,13 +4,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress": "npx cypress open"
-
+    "cypress": "npx cypress open",
+    "cypress-headless": "cypress run",
+    "android-sanity": "node appium/tests/sanity.js",
+    "appium-check": "appium-doctor",
+    "appium-server": "appium server -p 4723 -a 0.0.0.0 -pa /wd/hub --relaxed-security --allow-insecure=none --deny-insecure=none",
+    "close-appium-server": "pkill -f appium",
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "appium-uiautomator2-driver": "^3.7.5",
     "cypress": "^13.13.2"
+  },
+  "dependencies": {
+    "appium": "^2.11.2"
   }
 }

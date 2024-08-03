@@ -20,6 +20,9 @@
     "cypress": "^13.13.2"
   },
   "dependencies": {
-    "appium": "^2.11.2"
+    "appium": "^2.11.2",
+    "assert": "^2.1.0",
+    "chalk": "^5.3.0",
+    "webdriverio": "^8.39.1"
   }
 }

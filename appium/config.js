@@ -1,7 +1,7 @@
 module.exports = {
   user: {
-    environment: 'ci',
-    email: 'ci@agwafarm.com',
+    environment: 'test',
+    email: 'test@email.com',
     code: '555555',
   },
   capabilities: {
@@ -16,7 +16,8 @@ module.exports = {
     'appium:appWaitForLaunch': false,
     'appium:systemPort': 8210,
     'appuium:newCommandTimeout': '600',
-    'appium:logLevel': 'debug'
+    'appium:logLevel': 'debug',
+    'appium:autoAcceptAlerts': true,
   },
   wdOpts: {
     hostname: 'localhost',

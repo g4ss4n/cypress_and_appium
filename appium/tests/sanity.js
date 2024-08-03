@@ -6,15 +6,15 @@ async function runTest() {
   const driver = await remote({ ...config.wdOpts, capabilities: config.capabilities });
 
   try {
-    // Allow notifications
-    await driver.pause(2000); // Wait for the notification prompt to appear
-    const allowButton = await driver.$('~Allow'); // Replace with the appropriate selector for the "Allow" button
-    await allowButton.click();
+//    await commands.allowPermissions(driver);
 
-    // Click on skip
-    await driver.pause(2000); // Wait for the skip button to appear
-    const skipButton = await driver.$('~Skip'); // Replace with the appropriate selector for the "Skip" button
-    await skipButton.click();
+    await commands.validateElementText(driver, 'cm.aptoide.pt:id/title', 'Discover the Best Apps');
+
+    await commands.validateElementText(driver, 'cm.aptoide.pt:id/description', 'No content restrictions for you to find top apps');
+
+    await commands.validateElementText(driver, 'cm.aptoide.pt:id/skip_button', 'SKIP');
+
+    await commands.clickElementById(driver, 'cm.aptoide.pt:id/skip_button');
 
     commands.printSuccess();
     await driver.pause(10000);

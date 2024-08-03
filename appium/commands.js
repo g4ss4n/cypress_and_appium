@@ -1,58 +1,29 @@
-// commands.js
-const chalk = require('chalk');
+const assert = require('assert');
 const { exec } = require('child_process');
 
 let successfulCommands = [];
 
-async function environmentSelection(driver, environment) {
-  const imageView = await driver.$('//android.widget.ImageView[@resource-id="agwaHeaderLogo"]');
-  // Perform 4 clicks on the ImageView
-  for (let i = 0; i < 4; i++) {
-    await imageView.click();
-    await driver.pause(1000); // Optional: Add a pause to wait between clicks
-  }
-
-  const env = await driver.$(`//android.view.ViewGroup[@resource-id="environmentItem-${environment}"]`);
-  await env.click();
-
-  const backButton = await driver.$('//android.view.ViewGroup[@resource-id="headerBackButton"]/android.widget.ImageView');
-  await backButton.click();
-
-  successfulCommands.push('environmentSelection');
+// Utility function to validate the text of an element
+async function validateElementText(driver, elementId, expectedText) {
+  const element = await driver.$(`id=${elementId}`);
+  const actualText = await element.getText();
+  assert.strictEqual(actualText, expectedText, `Text for element ${elementId} does not match. Expected: "${expectedText}", but got: "${actualText}"`);
+  successfulCommands.push('validateElementText: ' + expectedText);
+  return element;
 }
 
-async function signIn(driver) {
-  const signInButton = await driver.$('android=new UiSelector().text("SIGN IN")');
-  await signInButton.click();
-
-  successfulCommands.push('signIn');
+// Utility function to click on an element by its ID
+async function clickElementById(driver, elementId) {
+  const element = await driver.$(`id=${elementId}`);
+  await element.click();
+  successfulCommands.push('clickElementById: ' + elementId);
 }
 
-async function enterAndSendEmail(driver, email) {
-  const emailInputElement = await driver.$('//android.widget.EditText[@resource-id="emailInput"]');
-  await emailInputElement.setValue(email);
-
-  const sendEmailButton = await driver.$('//android.view.ViewGroup[@resource-id="sendEmailButton"]');
-  await sendEmailButton.click();
-
-  successfulCommands.push('enterAndSendEmail');
-}
-
-async function codeInput(driver, code) {
-  const firstTextViewInCodeInputs = await driver.$('//android.view.ViewGroup[@resource-id="codeInputsContainer"]/android.widget.TextView[1]');
-  await firstTextViewInCodeInputs.click();
-
-  const codeTextInput = await driver.$('//android.widget.EditText[@resource-id="codeTextInput"]');
-  await codeTextInput.setValue(code);
-
-  successfulCommands.push('codeInput');
-}
-
+// Utility function to handle the "Allow Permissions" prompt
 async function allowPermissions(driver) {
   const allowButton = await driver.$('//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]');
   await allowButton.waitForDisplayed({ timeout: 20000 });
   await allowButton.click();
-
   successfulCommands.push('allowPermissions');
 }
 
@@ -78,13 +49,10 @@ function extractFailedCommand(stack) {
 }
 
 module.exports = {
-  environmentSelection,
-  signIn,
-  enterAndSendEmail,
-  codeInput,
+  validateElementText,
+  clickElementById,
   allowPermissions,
   printSuccess,
   extractFailedCommand,
   stopAppiumServer,
 };
-

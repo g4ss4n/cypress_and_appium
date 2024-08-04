@@ -16,6 +16,7 @@ This project uses Cypress for end-to-end testing of a login and logout flow.
 
 ### Running Tests
 - To open the Cypress Test Runner, use: ```npm run cypress```
+- To run the Cypress tests headless, use: ```npm run cypress-headless```
 
 ### The suite includes:
 - Login and Logout Test: Logs in, verifies login, performs a page overview, and logs out.

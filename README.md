@@ -43,8 +43,6 @@ This project uses Appium for automating mobile application testing.
 2. ```validateElementText(driver, elementId, expectedText):``` Validate the text of an element.
 3. ```clickElementById(driver, elementId):``` Click on an element by its ID.
 4. ```stopAppiumServer():``` Stop the Appium server.
-5. ```printSuccess():``` Print successful commands.
-6. ```extractFailedCommand(stack):``` Extract the failed command from the stack trace.
 
 ### Running Tests
 To run the Appium tests

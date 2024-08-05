@@ -1,22 +1,13 @@
 module.exports = {
-  user: {
-    environment: 'test',
-    email: 'test@email.com',
-    code: '555555',
-  },
   capabilities: {
     'appium:platformName': 'Android',
     'appium:automationName': 'UiAutomator2',
     'appium:deviceName': 'Nexus_6P_API_33',
-    'appium:androidInstallTimeout': '240000',
-    'appium:uiautomator2ServerInstallTimeout': '240000',
-    'appium:adbExecTimeout': '240000',
     'appium:app': getAppPath(),
     'appium:skipDeviceInitialization': true,
     'appium:appWaitForLaunch': false,
     'appium:systemPort': 8210,
-    'appuium:newCommandTimeout': '600',
-    'appium:logLevel': 'debug',
+    'appium:newCommandTimeout': '600',
     'appium:autoAcceptAlerts': true,
   },
   wdOpts: {

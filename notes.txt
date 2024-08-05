@@ -1,3 +1,5 @@
+// bs config 
+
 module.exports = {
   user: {
     environment: 'test',

@@ -1,0 +1,15 @@
+{
+  "register": {
+    "url": "https://g4ss4n-makerspace.netlify.app/signup",
+    "fullName": "Test User",
+    "email": "testuser2@example.com",
+    "password": "TestPassword123!",
+    "confirmPassword": "TestPassword123!",
+    "role": "student"
+  },
+  "login": {
+    "url": "https://g4ss4n-makerspace.netlify.app/",
+    "email": "testuser@example.com",
+    "password": "TestPassword123!"
+  }
+}

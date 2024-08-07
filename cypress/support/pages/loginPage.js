@@ -1,34 +1,41 @@
-// cypress/support/pages/loginPage.js
-
 class LoginPage {
-    constructor() {
-      this.locators = {
-        email: 'input[placeholder="Email"]',
-        password: 'input[placeholder="Password"]',
-        submitButton: 'button[type="button"]:contains("Sign In")'
-      };
-    }
-  
-    visit(url) {
-      cy.visit(url);
-    }
-  
-    fillEmail(email) {
-      cy.get(this.locators.email).type(email);
-    }
-  
-    fillPassword(password) {
-      cy.get(this.locators.password).type(password);
-    }
-  
-    submit() {
-      cy.get(this.locators.submitButton).click();
-    }
-  
-    verifySuccessfulLogin() {
-      cy.url().should('include', '/projects');
-    }
+  elements = {
+    email: () => cy.get('input[placeholder="Email"]'),
+    password: () => cy.get('input[placeholder="Password"]'),
+    submitButton: () => cy.get('button[type="button"]:contains("Sign In")')
+  };
+
+  visit(url) {
+    cy.visit(url);
   }
-  
-  export default LoginPage;
-  
+
+  fillEmail(email) {
+    this.elements.email().type(email);
+  }
+
+  fillPassword(password) {
+    this.elements.password().type(password);
+  }
+
+  submit() {
+    this.elements.submitButton().click();
+  }
+
+  verifySuccessfulLogin() {
+    cy.url().should('include', '/projects');
+  }
+
+  logout() {
+    cy.get('nav').contains('Logout').click();
+  }
+
+  login(email, password, url) {
+      this.visit(url);
+      this.fillEmail(email);
+      this.fillPassword(password);
+      this.submit();
+      this.verifySuccessfulLogin();
+  }
+}
+
+export default LoginPage;

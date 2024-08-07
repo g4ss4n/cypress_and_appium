@@ -11,7 +11,8 @@ module.exports = defineConfig({
       'cypress/e2e/active/dashboard.cy.js',
       'cypress/e2e/active/createNewProject.cy.js',
       'cypress/e2e/active/createNewTemplate.cy.js',
-      'cypress/e2e/active/projectDeletion.cy.js'
+      'cypress/e2e/active/projectDeletion.cy.js',
+      'cypress/e2e/active/createNewProjectTask.cy.js'
     ],
     setupNodeEvents(on, config) {
     }

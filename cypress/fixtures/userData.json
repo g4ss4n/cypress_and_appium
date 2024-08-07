@@ -2,14 +2,25 @@
   "register": {
     "url": "https://g4ss4n-makerspace.netlify.app/signup",
     "fullName": "Test User",
-    "email": "testuser2@example.com",
+    "email": "testuser3@example.com",
     "password": "TestPassword123!",
     "confirmPassword": "TestPassword123!",
     "role": "student"
   },
   "login": {
     "url": "https://g4ss4n-makerspace.netlify.app/",
-    "email": "testuser@example.com",
+    "email": "testuser3@example.com",
     "password": "TestPassword123!"
+  },
+  "template":{
+    "name":"My New Template"
+  },
+  "project": {
+    "name": "Sample Project"
+  },
+  "thread": {
+    "title": "New Thread Title",
+    "description": "This is a description for the new thread.",
+    "filePath": "path/to/your/file"
   }
 }

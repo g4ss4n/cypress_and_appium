@@ -9,27 +9,8 @@ describe('User Login Test', () => {
     cy.fixture('userData').then((data) => {
       const userData = data.login;
 
-      loginPage.visit(userData.url);
-
-      cy.url().should('include', '/projects'); 
-
-      cy.get(dashboardPage.locators.logoutButton, { timeout: 5000 })
-        .then($logoutButton => {
-          if ($logoutButton.length) {
-            // User is logged in, perform logout
-            dashboardPage.logout();
-          }
-
-          // Proceed with login
-          loginPage.visit(userData.url);
-
-          loginPage.fillEmail(userData.email);
-          loginPage.fillPassword(userData.password);
-
-          loginPage.submit();
-
-          loginPage.verifySuccessfulLogin();
-        });
+      loginPage.login(userData.email, userData.password, userData.url);
+        
     });
   });
 });

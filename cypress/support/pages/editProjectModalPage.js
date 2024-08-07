@@ -1,39 +1,35 @@
-// cypress/support/pages/editProjectModalPage.js
-
 class EditProjectModalPage {
-    constructor() {
-        this.locators = {
-            modal: '.modal-content',
-            projectNameInput: '.project-name-container input',
-            editProjectButton: '.edit-project-button',
-            deleteProjectInput: '.delete-project-input',
-            deleteProjectButton: '.delete-project-button',
-            closeModalButton: '.close-modal-button'
-        };
-    }
+    elements = {
+        modal: () => cy.get('.modal-content'),
+        projectNameInput: () => cy.get('.project-name-container input'),
+        editProjectButton: () => cy.get('.edit-project-button'),
+        deleteProjectInput: () => cy.get('.delete-project-input'),
+        deleteProjectButton: () => cy.get('.delete-project-button'),
+        closeModalButton: () => cy.get('.close-modal-button')
+    };
 
     ensureModalIsVisible() {
-        cy.get(this.locators.modal).should('be.visible');
+        this.elements.modal().should('be.visible');
     }
 
     enterProjectName(projectName) {
-        cy.get(this.locators.projectNameInput).clear().type(projectName);
+        this.elements.projectNameInput().clear().type(projectName);
     }
 
     clickEditProjectButton() {
-        cy.get(this.locators.editProjectButton).click();
+        this.elements.editProjectButton().click();
     }
 
     enableDeleteProject() {
-        cy.get(this.locators.deleteProjectInput).type('yes');
+        this.elements.deleteProjectInput().type('yes');
     }
 
     clickDeleteProjectButton() {
-        cy.get(this.locators.deleteProjectButton).click();
+        this.elements.deleteProjectButton().click();
     }
 
     closeEditModal() {
-        cy.get(this.locators.closeModalButton).click();
+        this.elements.closeModalButton().click();
     }
 }
 

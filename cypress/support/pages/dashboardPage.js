@@ -1,100 +1,96 @@
-// cypress/support/pages/dashboardPage.js
-
 class DashboardPage {
-    constructor() {
-        this.locators = {
-            userInfo: '.user-info',
-            navbarTitle: '.navbar-title',
-            projectLabel: '.project-label',
-            createNewProjectButton: 'button.create-new:contains("Create New Project")',
-            createNewTemplateButton: 'button.create-new:contains("Create New Template")',
-            noTemplatesFound: '.template-list p',
-            noOwnerProjectsFound: '.owner-projects p',
-            noParticipantProjectsFound: '.participant-projects p',
-            footerContent: '.footer-content',
-            logoutButton: '.navbar-actions .action-button',
-            templateList: '.template-list',
-            ownerProjects: '.owner-projects', // Locator for the owner projects list
-            projectItemContent: '.project-list-item .project-item-content',
-            editProjectButton: '.project-list-item .edit-icon',
-        };
-    }
+    elements = {
+        userInfo: () => cy.get('.user-info'),
+        navbarTitle: () => cy.get('.navbar-title'),
+        projectLabel: () => cy.get('.project-label'),
+        createNewProjectButton: () => cy.get('button.create-new:contains("Create New Project")'),
+        createNewTemplateButton: () => cy.get('button.create-new:contains("Create New Template")'),
+        noTemplatesFound: () => cy.get('.template-list p'),
+        noOwnerProjectsFound: () => cy.get('.owner-projects p'),
+        noParticipantProjectsFound: () => cy.get('.participant-projects p'),
+        footerContent: () => cy.get('.footer-content'),
+        logoutButton: () => cy.get('.navbar-actions .action-button'),
+        templateList: () => cy.get('.template-list'),
+        ownerProjects: () => cy.get('.owner-projects'),
+        projectItemContent: () => cy.get('.project-list-item .project-item-content'),
+        editProjectButton: () => cy.get('.project-list-item .edit-icon')
+    };
 
     visit(url) {
         cy.visit(url);
     }
 
     checkUserInfo() {
-        cy.get(this.locators.userInfo).should('exist');
+        this.elements.userInfo().should('exist');
     }
 
     checkNavbarTitle() {
-        cy.get(this.locators.navbarTitle).should('contain', 'MakerSpace');
+        this.elements.navbarTitle().should('contain', 'MakerSpace');
     }
 
     checkProjectLabel() {
-        cy.get(this.locators.projectLabel).should('contain', 'You have 0 projects');
+        this.elements.projectLabel().should('contain', 'You have 0 projects');
     }
 
     checkCreateButtons() {
-        cy.get(this.locators.createNewProjectButton).should('exist');
-        cy.get(this.locators.createNewTemplateButton).should('exist');
+        this.elements.createNewProjectButton().should('exist');
+        this.elements.createNewTemplateButton().should('exist');
     }
 
     checkNoProjects() {
-        cy.get(this.locators.noTemplatesFound).should('contain', 'No templates found');
-        cy.get(this.locators.noOwnerProjectsFound).should('contain', 'No projects found');
-        cy.get(this.locators.noParticipantProjectsFound).should('contain', 'No projects found');
+        this.elements.noTemplatesFound().should('contain', 'No templates found');
+        this.elements.noOwnerProjectsFound().should('contain', 'No projects found');
+        this.elements.noParticipantProjectsFound().should('contain', 'No projects found');
     }
 
     checkFooterContent() {
-        cy.get(this.locators.footerContent).should('exist');
+        this.elements.footerContent().should('exist');
     }
 
     logout() {
-        cy.get(this.locators.logoutButton, { timeout: 5000 })
+        this.elements.logoutButton({ timeout: 5000 })
             .should('exist')
             .click();
 
-        cy.get(this.locators.logoutButton, { timeout: 5000 })
+        this.elements.logoutButton({ timeout: 5000 })
             .should('not.exist');
     }
 
     clickCreateNewTemplate() {
-        cy.get(this.locators.createNewTemplateButton).click();
+        this.elements.createNewTemplateButton().click();
     }
 
     clickCreateNewProject() {
-        cy.get(this.locators.createNewProjectButton).click();
+        this.elements.createNewProjectButton().click();
     }
 
     validateProjectName(projectName) {
-        cy.get(this.locators.ownerProjects).should('contain', projectName);
+        this.elements.ownerProjects().should('contain', projectName);
     }
 
     validateTemplateName(templateName) {
-        cy.get(this.locators.templateList).should('contain', templateName);
+        this.elements.templateList().should('contain', templateName);
     }
 
     verifyProjectModalNotExist(modalPage) {
-        cy.get(modalPage.locators.modal).should('not.exist');
+        cy.get(modalPage.elements.modal).should('not.exist');
     }
 
     verifyTemplateModalNotExist(templateModalPage) {
-        cy.get(templateModalPage.locators.modal).should('not.exist');
+        cy.get(templateModalPage.elements.modal).should('not.exist');
     }
 
     openEditProjectModal(projectName) {
-        cy.get(this.locators.projectItemContent)
+        this.elements.projectItemContent()
             .contains(projectName)
             .first()
             .parent()
-            .find(this.locators.editProjectButton)
+            .find(this.elements.editProjectButton())
             .click();
     }
 
     verifyProjectDeleted(projectName) {
-        cy.get(this.locators.ownerProjects).should('not.contain', projectName);
+        this.elements.ownerProjects().should('not.contain', projectName);
     }
 }
 

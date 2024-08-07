@@ -1,46 +1,44 @@
 class RegisterPage {
-  constructor() {
-    this.locators = {
-      fullName: 'input[placeholder="Full Name"]',
-      email: 'input[placeholder="Email"]',
-      password: 'input[placeholder="Password"]',
-      confirmPassword: 'input[placeholder="Confirm Password"]',
-      role: (role) => `input[name="role"][value="${role}"]`,
-      submitButton: 'button[type="button"]:contains("Sign Up")',
-      errorMessage: 'p:contains("Error signing up: Firebase: Error (auth/email-already-in-use).")'
-    };
-  }
+  elements = {
+    fullName: () => cy.get('input[placeholder="Full Name"]'),
+    email: () => cy.get('input[placeholder="Email"]'),
+    password: () => cy.get('input[placeholder="Password"]'),
+    confirmPassword: () => cy.get('input[placeholder="Confirm Password"]'),
+    role: (role) => cy.get(`input[name="role"][value="${role}"]`),
+    submitButton: () => cy.get('button[type="button"]:contains("Sign Up")'),
+    errorMessage: () => cy.get('p:contains("Error signing up: Firebase: Error (auth/email-already-in-use).")')
+  };
 
   visit(url) {
     cy.visit(url);
   }
 
   fillFullName(fullName) {
-    cy.get(this.locators.fullName).type(fullName);
+    this.elements.fullName().type(fullName);
   }
 
   fillEmail(email) {
-    cy.get(this.locators.email).type(email);
+    this.elements.email().type(email);
   }
 
   fillPassword(password) {
-    cy.get(this.locators.password).type(password);
+    this.elements.password().type(password);
   }
 
   fillConfirmPassword(confirmPassword) {
-    cy.get(this.locators.confirmPassword).type(confirmPassword);
+    this.elements.confirmPassword().type(confirmPassword);
   }
 
   selectRole(role) {
-    cy.get(this.locators.role(role)).click();
+    this.elements.role(role).click();
   }
 
   submit() {
-    cy.get(this.locators.submitButton).click();
+    this.elements.submitButton().click();
   }
 
   verifyErrorMessage() {
-    cy.get(this.locators.errorMessage).should('exist');
+    this.elements.errorMessage().should('exist');
   }
 }
 

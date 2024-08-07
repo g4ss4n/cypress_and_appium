@@ -1,36 +1,27 @@
 class TemplateModalPage {
-    constructor() {
-        this.locators = {
-            modal: '.template-modal.open',
-            modalContent: '.template-modal-content',
-            formHeader: '.form-header',
-            formInput: '.form-input',
-            addTemplateButton: '.add-template-button',
-            closeModalButton: '.close-modal-button'
-        };
-    }
+    elements = {
+        modal: () => cy.get('.template-modal.open', { timeout: 5000 }),
+        modalContent: () => cy.get('.template-modal-content'),
+        formHeader: () => cy.get('.form-header'),
+        formInput: () => cy.get('.form-input'),
+        addTemplateButton: () => cy.get('.add-template-button'),
+        closeModalButton: () => cy.get('.close-modal-button')
+    };
 
     ensureModalIsVisible() {
-        cy.get(this.locators.modal, { timeout: 5000 })
-            .should('be.visible');
+        this.elements.modal().should('be.visible');
     }
 
     fillTemplateName(name) {
-        cy.get(this.locators.formInput)
-            .clear()
-            .type(name);
+        this.elements.formInput().clear().type(name);
     }
 
     clickCreateTemplate() {
-        cy.get(this.locators.addTemplateButton)
-            .should('be.enabled')
-            .click();
+        this.elements.addTemplateButton().should('be.enabled').click();
     }
 
     clickCloseModal() {
-        cy.get(this.locators.closeModalButton)
-            .should('be.visible')
-            .click();
+        this.elements.closeModalButton().should('be.visible').click();
     }
 }
 

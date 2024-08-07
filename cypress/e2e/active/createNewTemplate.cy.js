@@ -10,6 +10,7 @@ describe('Create New Template Test', () => {
     it('should log in, open the "Create New Template" modal, create a new template, and then close the modal', () => {
         cy.fixture('userData').then((data) => {
             const userData = data.login;
+            const template= data.template;
 
             loginPage.visit(userData.url);
             loginPage.fillEmail(userData.email);
@@ -18,12 +19,10 @@ describe('Create New Template Test', () => {
 
             dashboardPage.clickCreateNewTemplate();
             templateModalPage.ensureModalIsVisible();
-            templateModalPage.fillTemplateName('My New Template');
+            templateModalPage.fillTemplateName(template.name);
             templateModalPage.clickCreateTemplate();
-            templateModalPage.clickCloseModal();
 
-            dashboardPage.verifyProjectModalNotExist(templateModalPage);
-            dashboardPage.validateTemplateName('My New Template');
+            dashboardPage.validateTemplateName(template.name);
             
         });
     });

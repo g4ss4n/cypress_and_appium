@@ -12,10 +12,7 @@ describe('Create New Template Test', () => {
             const userData = data.login;
             const template= data.template;
 
-            loginPage.visit(userData.url);
-            loginPage.fillEmail(userData.email);
-            loginPage.fillPassword(userData.password);
-            loginPage.submit();
+            loginPage.login(userData.email, userData.password, userData.url);
 
             dashboardPage.clickCreateNewTemplate();
             templateModalPage.ensureModalIsVisible();
@@ -23,6 +20,8 @@ describe('Create New Template Test', () => {
             templateModalPage.clickCreateTemplate();
 
             dashboardPage.validateTemplateName(template.name);
+
+            dashboardPage.logout();
             
         });
     });

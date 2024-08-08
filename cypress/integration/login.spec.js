@@ -10,7 +10,7 @@ describe('User Login Test', () => {
       const userData = data.login;
 
       // Visit the login page
-      loginPage.visit(userData.url);
+      loginPage.goTo(userData.url);
 
       // Fill out the login form
       loginPage.fillEmail(userData.email);

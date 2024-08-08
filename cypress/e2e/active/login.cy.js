@@ -5,12 +5,22 @@ describe('User Login Test', () => {
   const loginPage = new LoginPage();
   const dashboardPage = new DashboardPage();
 
+  afterEach(() => {
+    dashboardPage.logout();
+    loginPage.validateLoggedOut();
+  });
+
   it('should navigate to the login page and log in a user', () => {
+    
     cy.fixture('userData').then((data) => {
       const userData = data.login;
 
       loginPage.login(userData.email, userData.password, userData.url);
-        
+      dashboardPage.checkNavbarTitle();
+      dashboardPage.checkUserInfo();
+      dashboardPage.checkCreateButtons();
+
     });
+
   });
 });

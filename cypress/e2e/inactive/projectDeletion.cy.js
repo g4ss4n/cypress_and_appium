@@ -14,7 +14,7 @@ describe('Project Deletion', () => {
     it('should delete an existing project', () => {
         const userData = data.login;
 
-        loginPage.visit(userData.url);
+        loginPage.goTo(userData.url);
         loginPage.fillEmail(userData.email);
         loginPage.fillPassword(userData.password);
         loginPage.submit();

@@ -9,7 +9,7 @@ class DashboardPage {
         noOwnerProjectsFound: () => cy.get('.owner-projects p'),
         noParticipantProjectsFound: () => cy.get('.participant-projects p'),
         footerContent: () => cy.get('.footer-content'),
-        logoutButton: () => cy.get('.navbar-actions .action-button'),
+        logoutButton: () => cy.get('.navbar .action-button svg').first(),
         templateList: () => cy.get('.template-list'),
         ownerProjects: () => cy.get('.owner-projects'),
         projectItemContent: () => cy.get('.project-list-item .project-item-content'),
@@ -48,12 +48,7 @@ class DashboardPage {
     }
 
     logout() {
-        this.elements.logoutButton({ timeout: 5000 })
-            .should('exist')
-            .click();
-
-        this.elements.logoutButton({ timeout: 5000 })
-            .should('not.exist');
+        this.elements.logoutButton().wait(1000).click({ force: true });
     }
 
     clickCreateNewTemplate() {
@@ -86,6 +81,19 @@ class DashboardPage {
             .first()
             .parent()
             .find(this.elements.editProjectButton())
+            .click();
+    }
+
+    goToProject(projectName) {
+        this.elements.projectItemContent()
+            .contains(projectName)
+            .click();
+    }
+
+    // Optional: Method to go to the first project directly
+    goToFirstProject() {
+        this.elements.projectItemContent()
+            .first()
             .click();
     }
 

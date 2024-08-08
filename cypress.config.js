@@ -1,6 +1,6 @@
-// cypress.config.js
-
 const { defineConfig } = require("cypress");
+const path = require('path');
+const { startDevServer } = require('@cypress/webpack-dev-server');
 
 module.exports = defineConfig({
   e2e: {
@@ -11,18 +11,27 @@ module.exports = defineConfig({
       "cypress/e2e/active/dashboard.cy.js",
       "cypress/e2e/active/createNewProject.cy.js",
       "cypress/e2e/active/createNewTemplate.cy.js",
-      "cypress/e2e/active/projectDeletion.cy.js",
       "cypress/e2e/active/createNewProjectTask.cy.js",
       "cypress/e2e/active/taskResponse.cy.js",
       "cypress/e2e/active/dashboard.cy.js",
+      "cypress/e2e/inactive/projectDeletion.cy.js",
+
     ],
-    setupNodeEvents(on, config) {},
+    setupNodeEvents(on, config) {
+      on('dev-server:start', (options) => {
+        return startDevServer({
+          options,
+          webpackConfig: require('./webpack.config.js'),
+        });
+      });
+    },
   },
 
   component: {
     devServer: {
       framework: "react",
       bundler: "webpack",
+      webpackConfig: require('./webpack.config.js'), 
     },
   },
 });

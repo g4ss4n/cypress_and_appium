@@ -5,20 +5,51 @@ describe('User Login Test', () => {
   const loginPage = new LoginPage();
   const dashboardPage = new DashboardPage();
 
+  beforeEach(() => {
+    cy.visit('/');
+  })
+
   afterEach(() => {
-    dashboardPage.logout();
     loginPage.validateLoggedOut();
   });
 
-  it('should navigate to the login page and log in a user', () => {
-    
-    cy.fixture('userData').then((data) => {
-      const userData = data.login;
+  it('Login teacher', () => {
 
-      loginPage.login(userData.email, userData.password, userData.url);
+    cy.fixture('userData').then((data) => {
+      const teacher = data.teacher;
+
+      loginPage.login(teacher.email, teacher.password);
       dashboardPage.checkNavbarTitle();
       dashboardPage.checkUserInfo();
       dashboardPage.checkCreateButtons();
+
+      dashboardPage.logout();
+    });
+
+  });
+
+  it('Login student', () => {
+
+    cy.fixture('userData').then((data) => {
+      const student = data.student;
+
+      loginPage.login(student.email, student.password);
+      dashboardPage.checkNavbarTitle();
+      dashboardPage.checkUserInfo();
+      dashboardPage.checkCreateButtons();
+
+      dashboardPage.logout();
+    });
+
+  });
+
+  it('Throw error when log in a student with wrong password', () => {
+
+    cy.fixture('userData').then((data) => {
+      const student = data.student;
+
+      loginPage.login(student.email, student.password + "wrong");
+      loginPage.validateErrorMessage();
 
     });
 

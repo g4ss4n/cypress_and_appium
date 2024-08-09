@@ -8,13 +8,21 @@ describe('Create New Task Test', () => {
     const loginPage = new LoginPage();
     const dashboardPage = new DashboardPage();
 
-    it('should create a new thread in the project and verify its creation', () => {
+    beforeEach(() => {
+        cy.visit("/");
+    })
+
+    afterEach(() => {
+        projectDetailsPage.clickBackButton();
+        dashboardPage.logout();
+    })
+    it('Teacher should create a new project task and verify its creation', () => {
         cy.fixture('userData').then((data) => {
             const project = data.project;
             const thread = data.thread;
-            const userInfo = data.login;
+            const teacher = data.teacher;
             
-            loginPage.login(userInfo.email, userInfo.password, userInfo.url);
+            loginPage.login(teacher.email, teacher.password);
             
             dashboardPage.goToProject(project.name);
 
@@ -24,9 +32,25 @@ describe('Create New Task Test', () => {
             projectDetailsPage.fillThreadDescription(thread.description);
             projectDetailsPage.submitThread();
             projectDetailsPage.verifyThreadAdded(thread.title);
-            projectDetailsPage.clickBackButton();
+        });
+    });
+
+    it('Student should create a new project task and verify its creation', () => {
+        cy.fixture('userData').then((data) => {
+            const project = data.project;
+            const thread = data.thread;
+            const student = data.student;
             
-            dashboardPage.logout();
+            loginPage.login(student.email, student.password);
+            
+            dashboardPage.goToProject(project.name);
+
+            projectDetailsPage.clickAddThreadButton();
+            projectDetailsPage.verifyAddThreadForm();
+            projectDetailsPage.fillThreadTitle(thread.title);
+            projectDetailsPage.fillThreadDescription(thread.description);
+            projectDetailsPage.submitThread();
+            projectDetailsPage.verifyThreadAdded(thread.title);
         });
     });
 });

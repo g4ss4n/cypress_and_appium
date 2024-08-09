@@ -1,25 +1,29 @@
 import RegisterPage from '../../support/pages/registerPage';
 import DashboardPage from '../../support/pages/dashboardPage';
+import LoginPage from '../../support/pages/loginPage';
 
 describe('User Registration and Dashboard Test', () => {
   const registerPage = new RegisterPage();
   const dashboardPage = new DashboardPage();
+  const loginPage = new LoginPage();
 
-  it('should navigate to the register page, register a new user, and verify the dashboard', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  it('should navigate to the register page, register a new teacher, and verify the dashboard', () => {
     cy.fixture('userData').then((data) => {
-      const userData = data.register;
+      const teacher = data.teacher;
+      
+      loginPage.signUp();
 
-      registerPage.visit(userData.url);
-
-      registerPage.fillFullName(userData.fullName);
-      registerPage.fillEmail(userData.email);
-      registerPage.fillPassword(userData.password);
-      registerPage.fillConfirmPassword(userData.confirmPassword);
-      registerPage.selectRole(userData.role);
-
-      registerPage.submit();
-
-      cy.url().should('include', '/projects');
+      registerPage.register(
+        teacher.name,
+        teacher.email,
+        teacher.password,
+        teacher.password,
+        teacher.role
+      );
 
       dashboardPage.checkUserInfo();
       dashboardPage.checkNavbarTitle();
@@ -29,6 +33,51 @@ describe('User Registration and Dashboard Test', () => {
       dashboardPage.checkFooterContent();
 
       dashboardPage.logout();
+    });
+  });
+
+  it('should navigate to the register page, register a new student, and verify the dashboard', () => {
+    cy.fixture('userData').then((data) => {
+      const student = data.student;
+      
+      loginPage.signUp();
+
+      registerPage.register(
+        student.name,
+        student.email,
+        student.password,
+        student.password,
+        student.role
+      );
+  
+      cy.url().should('include', '/projects');
+  
+      dashboardPage.checkUserInfo();
+      dashboardPage.checkNavbarTitle();
+      dashboardPage.checkProjectLabel();
+      dashboardPage.checkCreateButtons();
+      dashboardPage.checkNoProjects();
+      dashboardPage.checkFooterContent();
+  
+      dashboardPage.logout();
+    });
+  });
+
+  it('should throw error when registering the same student twice', () => {
+    cy.fixture('userData').then((data) => {
+      const student = data.student;
+      
+      loginPage.signUp();
+
+      registerPage.register(
+        student.name,
+        student.email,
+        student.password,
+        student.password,
+        student.role
+      );
+
+      registerPage.verifyErrorMessage();
     });
   });
 });

@@ -7,15 +7,20 @@ describe('Add Response to Thread Test', () => {
     const loginPage = new LoginPage();
     const dashboardPage = new DashboardPage();
 
+    beforeEach(() => {
+        cy.visit("/");
+    });
+
     it('should add a response to a thread and verify its addition', () => {
         cy.fixture('userData').then((data) => {
             const project = data.project;
             const thread = data.thread;
             const response = data.response; 
-            const userInfo = data.login;
+            const teacher = data.teacher;
             
-            loginPage.login(userInfo.email, userInfo.password, userInfo.url);
+            loginPage.login(teacher.email, teacher.password);
             dashboardPage.goToProject(project.name);
+            
             cy.contains(thread.title).click(); 
 
             projectDetailsPage.clickFirstResponseButton();
@@ -25,7 +30,7 @@ describe('Add Response to Thread Test', () => {
             projectDetailsPage.verifyResponseAdded(response.content);
 
             projectDetailsPage.clickBackButton();
-            dashboardPage.logout();
+
         });
     });
 });

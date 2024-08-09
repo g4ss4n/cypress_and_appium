@@ -11,8 +11,9 @@ describe('Dahsboard Test', () => {
 
     beforeEach(() => {
         cy.fixture('userData').then((data) => {
-            const userData = data.login;
-            loginPage.login(userData.email, userData.password, userData.url);
+            cy.visit("/");
+            const teacher = data.teacher;
+            loginPage.login(teacher.email, teacher.password);
         });
     });
 

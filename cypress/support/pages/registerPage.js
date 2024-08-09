@@ -37,6 +37,15 @@ class RegisterPage {
     this.elements.submitButton().click();
   }
 
+  register(fullName, email, password, confirmPassword, role) {
+    this.fillFullName(fullName);
+    this.fillEmail(email);
+    this.fillPassword(password);
+    this.fillConfirmPassword(confirmPassword);
+    this.selectRole(role);
+    this.submit();
+  }
+
   verifyErrorMessage() {
     this.elements.errorMessage().should('exist');
   }

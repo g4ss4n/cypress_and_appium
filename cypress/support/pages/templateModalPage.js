@@ -23,6 +23,10 @@ class TemplateModalPage {
     clickCloseModal() {
         this.elements.closeModalButton().should('be.visible').click();
     }
+
+    verifySuccessMessage() {
+        this.elements.modalContent().should('be.visible');
+    }
 }
 
 export default TemplateModalPage;

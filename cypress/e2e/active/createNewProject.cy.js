@@ -7,12 +7,37 @@ describe('Create New Project Using Empty Template', () => {
     const dashboardPage = new DashboardPage();
     const projectModalPage = new ProjectModalPage();
 
-    it('Create New Project', () => {
+    beforeEach(() => {
+        cy.visit("/");
+    })
+
+    afterEach(() => {
+        dashboardPage.logout();
+    })
+    it('Create New Project As a Teacher', () => {
         cy.fixture('userData').then((data) => {
-            const userData = data.login;
+            const teacher = data.teacher;
             const project = data.project
 
-            loginPage.login(userData.email, userData.password, userData.url);
+            loginPage.login(teacher.email, teacher.password);
+            dashboardPage.clickCreateNewProject();
+
+            projectModalPage.ensureModalIsVisible();
+            projectModalPage.fillProjectName(project.name);
+            projectModalPage.clickCreateProject();
+            projectModalPage.verifySuccessMessage();
+            projectModalPage.clickCloseModal();
+
+            dashboardPage.validateProjectName(project.name);
+        });
+    });
+
+    it('Create New Project As a Student', () => {
+        cy.fixture('userData').then((data) => {
+            const student = data.student;
+            const project = data.project
+
+            loginPage.login(student.email, student.password);
             dashboardPage.clickCreateNewProject();
 
             projectModalPage.ensureModalIsVisible();

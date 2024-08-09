@@ -2,27 +2,52 @@ import LoginPage from '../../support/pages/loginPage';
 import DashboardPage from '../../support/pages/dashboardPage';
 import TemplateModalPage from '../../support/pages/templateModalPage';
 
-describe('Create New Template Test', () => {
+describe('Create New Project Using Empty Template', () => {
     const loginPage = new LoginPage();
     const dashboardPage = new DashboardPage();
     const templateModalPage = new TemplateModalPage();
 
-    it('should log in, open the "Create New Template" modal, create a new template, and then close the modal', () => {
+    beforeEach(() => {
+        cy.visit("/");
+    })
+
+    afterEach(() => {
+        dashboardPage.logout();
+    })
+    it('Create New Template As a Teacher', () => {
         cy.fixture('userData').then((data) => {
-            const userData = data.login;
-            const template= data.template;
+            const teacher = data.teacher;
+            const template = data.template
 
-            loginPage.login(userData.email, userData.password, userData.url);
-
+            loginPage.login(teacher.email, teacher.password);
             dashboardPage.clickCreateNewTemplate();
+
             templateModalPage.ensureModalIsVisible();
             templateModalPage.fillTemplateName(template.name);
             templateModalPage.clickCreateTemplate();
+            templateModalPage.verifySuccessMessage();
+            templateModalPage.clickCloseModal();
 
             dashboardPage.validateTemplateName(template.name);
-
-            dashboardPage.logout();
-            
         });
     });
+
+    it('Create New Template As a Student', () => {
+        cy.fixture('userData').then((data) => {
+            const student = data.student;
+            const template = data.template
+
+            loginPage.login(student.email, student.password);
+            dashboardPage.clickCreateNewTemplate();
+
+            templateModalPage.ensureModalIsVisible();
+            templateModalPage.fillTemplateName(template.name);
+            templateModalPage.clickCreateTemplate();
+            templateModalPage.verifySuccessMessage();
+            templateModalPage.clickCloseModal();
+
+            dashboardPage.validateTemplateName(template.name);
+        });
+    });
+
 });

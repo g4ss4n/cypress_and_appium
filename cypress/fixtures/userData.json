@@ -1,16 +1,18 @@
 {
-  "register": {
-    "url": "https://g4ss4n-makerspace.netlify.app/signup",
-    "fullName": "Test User",
-    "email": "testuser7@example.com",
-    "password": "TestPassword123!",
-    "confirmPassword": "TestPassword123!",
+  "env": {
+    "url": "https://g4ss4n-makerspace.netlify.app/"
+  },
+  "student": {
+    "name":"Studnet Test",
+    "email": "student_test@example.com",
+    "password": "123456",
     "role": "student"
   },
-  "login": {
-    "url": "https://g4ss4n-makerspace.netlify.app/",
-    "email": "testuser7@example.com",
-    "password": "TestPassword123!"
+  "teacher": {
+    "name":"Teacher Test",
+    "email": "teacher_test@example.com",
+    "password": "123456",
+    "role": "teacher"
   },
   "template":{
     "name":"My New Template"

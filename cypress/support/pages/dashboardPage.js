@@ -13,7 +13,9 @@ class DashboardPage {
         templateList: () => cy.get('.template-list'),
         ownerProjects: () => cy.get('.owner-projects'),
         projectItemContent: () => cy.get('.project-list-item .project-item-content'),
-        editProjectButton: () => cy.get('.project-list-item .edit-icon')
+        editProjectButton: () => cy.get('.project-list-item .edit-icon'),
+        editIcon: () => cy.get('svg.edit-icon') 
+
     };
 
     visit(url) {
@@ -75,13 +77,17 @@ class DashboardPage {
         cy.get(templateModalPage.elements.modal).should('not.exist');
     }
 
+    openFirstEditProjectModal() {
+        this.elements.editIcon().click({ force: true }); 
+    }
+
     openEditProjectModal(projectName) {
         this.elements.projectItemContent()
             .contains(projectName)
             .first()
             .parent()
-            .find(this.elements.editProjectButton())
-            .click();
+            .find(this.elements.editProjectButton()
+            .click({ multiple: true }));
     }
 
     goToProject(projectName) {

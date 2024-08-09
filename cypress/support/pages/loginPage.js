@@ -6,6 +6,8 @@ class LoginPage {
     password: () => cy.get('input[placeholder="Password"]'),
     submitButton: () => cy.get('button[type="button"]:contains("Sign In")'),
     signinPageHeading: () => cy.get('.signin-label'), 
+    signUp: () => cy.get('a.link').contains('Sign up here'),
+    errorMessage: () => cy.get('p').contains('Error signing'),
 
   };
 
@@ -33,18 +35,23 @@ class LoginPage {
     cy.get('nav').contains('Logout').click();
   }
 
-  login(email, password, url) {
-      this.goTo(url);
+  login(email, password) {
       this.fillEmail(email);
       this.fillPassword(password);
       this.submit();
-      this.verifySuccessfulLogin();
   }
 
   validateLoggedOut() {
     this.elements.signinPageHeading().should('be.visible'); 
   }
 
+  signUp() {
+    this.elements.signUp().click();
+  }
+
+  validateErrorMessage() {
+    this.elements.errorMessage().should('be.visible');
+  }
 }
 
 export default LoginPage;

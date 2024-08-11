@@ -3,14 +3,14 @@
     "url": "https://g4ss4n-makerspace.netlify.app/"
   },
   "student": {
-    "name":"Studnet Test",
-    "email": "student_test@example.com",
+    "name":"Student Test",
+    "email": "student_test2@example.com",
     "password": "123456",
     "role": "student"
   },
   "teacher": {
     "name":"Teacher Test",
-    "email": "teacher_test@example.com",
+    "email": "teacher_test2@example.com",
     "password": "123456",
     "role": "teacher"
   },

@@ -30,8 +30,8 @@ class DashboardPage {
         this.elements.navbarTitle().should('contain', 'MakerSpace');
     }
 
-    checkProjectLabel() {
-        this.elements.projectLabel().should('contain', 'You have 0 projects');
+    checkProjectLabel(projectNumber) {
+        this.elements.projectLabel().should('contain', `You have ${projectNumber} projects`);
     }
 
     checkCreateButtons() {

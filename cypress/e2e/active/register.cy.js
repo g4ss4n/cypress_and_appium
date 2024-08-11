@@ -27,7 +27,7 @@ describe('User Registration and Dashboard Test', () => {
 
       dashboardPage.checkUserInfo();
       dashboardPage.checkNavbarTitle();
-      dashboardPage.checkProjectLabel();
+      dashboardPage.checkProjectLabel(0);
       dashboardPage.checkCreateButtons();
       dashboardPage.checkNoProjects();
       dashboardPage.checkFooterContent();
@@ -54,7 +54,7 @@ describe('User Registration and Dashboard Test', () => {
   
       dashboardPage.checkUserInfo();
       dashboardPage.checkNavbarTitle();
-      dashboardPage.checkProjectLabel();
+      dashboardPage.checkProjectLabel(0);
       dashboardPage.checkCreateButtons();
       dashboardPage.checkNoProjects();
       dashboardPage.checkFooterContent();
